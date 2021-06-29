@@ -1,5 +1,5 @@
 {
-    "staticWebApps.appSubpath": "dist/angular-basic",
+    "staticWebApps.appSubpath": "./",
     "staticWebApps.apiSubpath": "api",
-    "staticWebApps.outputSubpath": "app/build"
+    "staticWebApps.outputSubpath": "dist/angular-basic"
 }
