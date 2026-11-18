@@ -1,0 +1,53 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Fleet overview</p>
+    <h1>Shipment records</h1>
+  </div>
+</section>
+
+<section class="toolbar">
+  <label class="search-box">
+    <span>Search</span>
+    <input type="search" [value]="searchTerm()" (input)="updateSearch($event)" placeholder="Search by shipment, customer, route" />
+  </label>
+</section>
+
+<section class="shipment-grid">
+  @for (shipment of filteredShipments(); track shipment.id) {
+    <article class="shipment-card">
+      <div class="card-header">
+        <div>
+          <span class="meta-label">Shipment ID</span>
+          <strong>{{ shipment.id }}</strong>
+        </div>
+        <app-status-badge [status]="shipment.status" />
+      </div>
+
+      <div class="route-block">
+        <span>{{ shipment.origin }}</span>
+        <span class="route-arrow">→</span>
+        <span>{{ shipment.destination }}</span>
+      </div>
+
+      <dl class="stats-list">
+        <div>
+          <dt>Customer</dt>
+          <dd>{{ shipment.customer }}</dd>
+        </div>
+        <div>
+          <dt>Vehicle</dt>
+          <dd>{{ shipment.vehicle }}</dd>
+        </div>
+        <div>
+          <dt>ETA</dt>
+          <dd>{{ shipment.eta }}</dd>
+        </div>
+      </dl>
+
+      <div class="card-footer">
+        <span>{{ shipment.weight }}</span>
+        <a [routerLink]="['/tracking', shipment.id]">View route</a>
+      </div>
+    </article>
+  }
+</section>

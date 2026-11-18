@@ -1,0 +1,80 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Shipment tracking</p>
+    <h1>{{ shipment().id }}</h1>
+  </div>
+  <a class="back-link" routerLink="/shipments">← Back to shipments</a>
+</section>
+
+<section class="overview-grid">
+  <article class="panel detail-panel">
+    <div class="detail-header">
+      <div>
+        <span class="label">Customer</span>
+        <h2>{{ shipment().customer }}</h2>
+      </div>
+      <app-status-badge [status]="shipment().status" />
+    </div>
+
+    <div class="route-summary">
+      <div>
+        <span>Origin</span>
+        <strong>{{ shipment().origin }}</strong>
+      </div>
+      <div class="route-divider">→</div>
+      <div>
+        <span>Destination</span>
+        <strong>{{ shipment().destination }}</strong>
+      </div>
+    </div>
+
+    <dl class="meta-grid">
+      <div>
+        <dt>Vehicle</dt>
+        <dd>{{ shipment().vehicle }}</dd>
+      </div>
+      <div>
+        <dt>ETA</dt>
+        <dd>{{ shipment().eta }}</dd>
+      </div>
+      <div>
+        <dt>Temperature</dt>
+        <dd>{{ shipment().temperature }}</dd>
+      </div>
+      <div>
+        <dt>Weight</dt>
+        <dd>{{ shipment().weight }}</dd>
+      </div>
+    </dl>
+  </article>
+
+  <article class="panel progress-panel">
+    <div class="progress-header">
+      <span class="label">Progress</span>
+      <strong>{{ shipment().progress }}%</strong>
+    </div>
+    <div class="progress-bar large">
+      <span [style.width.%]="shipment().progress"></span>
+    </div>
+    <p class="progress-text">Last update: {{ shipment().lastUpdate }}</p>
+  </article>
+</section>
+
+<section class="timeline-panel panel">
+  <div class="panel-header">
+    <h2>Route timeline</h2>
+  </div>
+
+  <ol class="timeline">
+    @for (milestone of shipment().milestones; track milestone.label) {
+      <li>
+        <span class="timeline-dot"></span>
+        <div>
+          <strong>{{ milestone.label }}</strong>
+          <time>{{ milestone.time }}</time>
+          <p>{{ milestone.description }}</p>
+        </div>
+      </li>
+    }
+  </ol>
+</section>

@@ -1,0 +1,87 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Operations overview</p>
+    <h1>Logistics command center</h1>
+  </div>
+  <button type="button" class="primary-action">+ New shipment</button>
+</section>
+
+<section class="stats-grid" aria-label="Logistics summary metrics">
+  @for (stat of stats; track stat.label) {
+    <app-stat-card
+      [label]="stat.label"
+      [value]="stat.value"
+      [change]="stat.change"
+      [trend]="stat.trend"
+      [accent]="stat.accent"
+    />
+  }
+</section>
+
+<section class="content-grid">
+  <article class="panel shipments-panel">
+    <div class="panel-header">
+      <h2>Active shipments</h2>
+      <a routerLink="/shipments">View all</a>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Shipment</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>ETA</th>
+            <th>Progress</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (shipment of shipments; track shipment.id) {
+            <tr>
+              <td>
+                <div class="shipment-name">
+                  <strong>{{ shipment.id }}</strong>
+                  <span>{{ shipment.route }}</span>
+                </div>
+              </td>
+              <td>{{ shipment.customer }}</td>
+              <td><app-status-badge [status]="shipment.status" /></td>
+              <td>{{ shipment.eta }}</td>
+              <td>
+                <div class="progress-meta">
+                  <span>{{ shipment.progress }}%</span>
+                  <div class="progress-bar">
+                    <span [style.width.%]="shipment.progress"></span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <a class="track-link" [routerLink]="['/tracking', shipment.id]">Track</a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <aside class="panel alerts-panel">
+    <div class="panel-header">
+      <h2>Operational alerts</h2>
+    </div>
+
+    <ul class="alert-list">
+      @for (alert of alerts; track alert.title) {
+        <li [attr.data-severity]="alert.severity">
+          <span class="dot"></span>
+          <div>
+            <strong>{{ alert.title }}</strong>
+            <p>{{ alert.detail }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </aside>
+</section>
